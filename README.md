@@ -78,7 +78,7 @@ IEA15-MW Wind turbine but with the following properties:
 - Tip radius=120.99902m
 - Overhang = 12.0313m
 - Hub Height set to 200m
-- 51 equidistant blade stations from 0 to 117.02902m
+- 50 equidistant blade stations from 0 to 117.02902m
 
 Baseline condition:
 
@@ -167,11 +167,12 @@ with:
 
 Blade 1 outputs, at a given radial position, bin-averaged as function of azimuth. `N` represents an index such that:
 
-- N=1, r=21.06522278250806m  (from blade root, node 10)
-- N=2, r=44.471025874183674m (node 20)
-- N=3, r=67.87682896585929m  (node 30)
-- N=4, r=91.28263205753491m  (node 40)
-- N=5, r=114.68843514921053  (node 50)
+- N=1,  1.772839218313782e-01m (from blade root, node 10)
+- N=2,  1.961491644965832e-01m (node 20)
+- N=3, -4.485233220920201e-01m (node 30)
+- N=4, -1.913679799182830e+00m (node 40)
+- N=5, -2.871202075032245e+00m (node 45!)
+
 
 For a given case, results from the different simulations are row-concatenanted into one output file.
 
