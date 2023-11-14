@@ -1,6 +1,10 @@
 # AeroBench
 
-Suggested set of simulations for benchmark of wind turbine simulation tools
+Suggested set of simulations for benchmark of wind turbine simulation tools.
+
+Scripts to generate the inputs and postprocess the outputs will be provided.
+
+
 
 ## Introduction
 
@@ -18,14 +22,19 @@ Different kind of outputs are requested. See below.
 
 ### Suggested directory structure:
 
+The plotting scripts will assume a given directory structure to plot the result for different tools, different cases, model, etc.
+
 
 Note: directories with an underscore are ignored by default in this repository. 
 Consider only adding the template files and scripts to generate the input files.
 
 
+
+Suggested structure:
+
 ```
 [tool]/_results/[case]_[model]_[output].csv
-[tool]/_[case]/[model]/inputs
+[tool]/_[case]/[model]/input_file.dat
 ```
 
  - With `[case]` in `{yaw, cone}`
@@ -37,7 +46,7 @@ Consider only adding the template files and scripts to generate the input files.
 Example:
 ```
 openfast/_results/yaw_bem_rotor.csv
-openfast/_yaw/[model]
+openfast/_yaw/bem/yaw_-50.0.fst
 ```
 
 
@@ -87,14 +96,9 @@ Baseline setup with yaw angle varied
 
 - yaw :  from -50 to 50 by step of 5 [deg]
 
-TODO: define convention (most likely, yaw is understood as the nacelle yaw angle, positive, about the vertical)
-
 ### case: cone
 
 - cone:  from -50 to 50 by step of 5 [deg]  # Note: coning happens at rotor center not blade root
-
-TODO: define convention (most likely, positive coning is upward (opposite of OpenFAST convention))
-
 
 
 
@@ -161,7 +165,7 @@ with:
 
 ### output: station[N]
 
-Blade 1 outputs, at a given radial position, bin-averaged as function of azimuth. `[N]` represents an index such that:
+Blade 1 outputs, at a given radial position, bin-averaged as function of azimuth. `N` represents an index such that:
 
 - N=1, r=21.06522278250806m  (from blade root, node 10)
 - N=2, r=44.471025874183674m (node 20)
@@ -175,4 +179,4 @@ For a given case, results from the different simulations are row-concatenanted i
 Columns: Azimuth_[deg], [PARAMETRIC_VARIABLE], Fn_[N/m], Ft_[N/m], more
 ```
 
-TODO
+TODO: more columns
