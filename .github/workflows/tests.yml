@@ -56,17 +56,56 @@ jobs:
           # Try to run main plot script
           python plot.py --noshow
 
+
+      - name: Check if deployment is needed
+        if: runner.os == 'Linux'
+        id: check_deploy
+        env:
+            PY_VERSION: ${{matrix.python-version}}
+            GH_EVENT  : ${{github.event_name}}
+        run: |
+          export BRANCH="${GITHUB_REF#refs/heads/}"
+          echo "GH_EVENT    :  $GH_EVENT"
+          echo "PY_VERSION  :  $PY_VERSION"
+          echo "GIT BRANCH  :  $BRANCH"
+          export OK=0
+          # Only deploy for push events
+          if [[ $PY_VERSION == "3.9" ]]; then
+            if [[ $GH_EVENT == "push" ]]; then 
+              if [[ $BRANCH == "main" ]] ; then 
+                export OK=1 ;
+              fi
+            fi
+          fi
+          echo "DEPLOY      : $OK"
+          if [[ $OK == "1" ]]; then
+              echo ">>> Deployment WILL take place"
+          else
+              echo ">>> Deployment WILL NOT take place"
+          fi
+          # Save variables as github outputs
+          echo "DEPLOY=$OK"  >> $GITHUB_OUTPUT
+
+
       - name: Export figure
+        if: ${{ (steps.check_deploy.outputs.DEPLOY == '1') && (runner.os == 'Linux') }}
         run: |
           export CURRENT_HASH=`git rev-parse --short HEAD`
-          echo "GITHUB_REF: $GITHUB_REF"
-          if [[ $GITHUB_REF == *"main"* ]]; then 
-             echo "Attemp to export generated figures"
-             # Add the figures to the fig repository (only if the figures change)
-             # TODO: do that with deploy or artifact insteady
-             git checkout figs
-             cp _figures_tmp/*.png figures/                        || true
-             git add -f figures/*.png                              || true
-             git commit -m "Update of figure after $CURRENT_HASH" || true
-             git push --set-upstream origin figs
-          fi
+          echo "Attempt to export generated figures"
+          # Add the figures to the fig repository (only if the figures change)
+          # TODO: do that with deploy or artifact insteady
+          git fetch --all
+          git checkout figs
+          cp _figures_tmp/*.png figures/                                      || true
+          git config --local user.email "1318316+ebranlard@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -f figures/*.png                                            || true
+          git commit -m "Update of figure after $CURRENT_HASH [skip actions]" || true
+          #git push --set-upstream origin figs
+
+      - name: Push changes
+        if: ${{ (steps.check_deploy.outputs.DEPLOY == '1') && (runner.os == 'Linux') }}
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: figs
