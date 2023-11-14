@@ -33,13 +33,13 @@ Consider only adding the template files and scripts to generate the input files.
 Suggested structure:
 
 ```
-[tool]/_results/[case]_[model]_[output].csv
-[tool]/_[case]/[model]/input_file.dat
+simulations/[tool]/_results/[case]_[model]_[output].csv
+simulations/[tool]/_[case]/[model]/input_file.dat
 ```
 
  - With `[case]` in `{yaw, cone}`
  - With `[output]` in `{rotor-avg, rotor-azi, span-avg, station[N]}`
- - With `[tool]` in `{openfast, awsm, bladed, hawc2, etc}`
+ - With `[tool]` in `{openfast, awsm, bladed, hawc2, etc}` or institution name `{nrel, dtu, tno, dlr, etc.}`
  - With `[model]` in `{bem, fvw, cfd}'` (submodels can be set as follows: `bem-version2`)
 
 
