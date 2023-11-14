@@ -240,3 +240,9 @@ Columns:
 Azimuth_[deg], [PARAMETRIC_VARIABLE], [same columns as span-avg]
 ```
 
+
+
+## Current results
+
+![Scatter](/../figs/figures/yaw.png)
+
