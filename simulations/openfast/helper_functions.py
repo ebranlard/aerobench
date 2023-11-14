@@ -219,6 +219,30 @@ def load_results(studies_names, algos=None):
         studies[study] = sims
     return studies
 
+def significant_digits(df, significance, inplace = False):
+    
+    # Create a positive data vector with a place holder for NaN / inf data
+    data = df.values
+    data_positive = np.where(np.isfinite(data) & (data != 0),
+                             np.abs(data),
+                             10**(significance-1))
+
+    # Align data by magnitude, round, and scale back to original
+    magnitude = 10 ** (significance - 1 - np.floor(np.log10(data_positive)))
+    data_rounded = np.round(data * magnitude) / magnitude
+
+    # Place back into Series or DataFrame
+    if inplace:
+        df.loc[:] = data_rounded
+    else:
+        if isinstance(df, pd.DataFrame):
+            return pd.DataFrame(data=data_rounded,
+                                index=df.index,
+                                columns=df.columns)
+        else:
+            return pd.Series(data=data_rounded, index=df.index)
+
+
 def save_results(studies, output='rotor-avg'):
     """ 
     Save results for a list of studies, and different algorithms
@@ -233,7 +257,20 @@ def save_results(studies, output='rotor-avg'):
             if df is not None:
                 filename = os.path.join(resDir,'{}_{}_{}.csv'.format(study,model,output))
                 print(filename)
+                # TODO use col Map
+                colKeep = ['Yaw_[deg]', 'RtAeroFxh_[N]', 'RtAeroPwr_[W]']
+                colNew  = ['Yaw_[deg]', 'Thrust_[N]' , 'Power_[W]']
+                df = pd.DataFrame(data=df[colKeep].values, columns=colNew)
+                N = 4
+                df = significant_digits(df, N, inplace=False)
+                # Convert to string for full control of format output..
+                for c in df.columns:
+                    if c in ['Yaw_[deg]']:
+                        df[c] = df[c].map('{:4.0f}'.format)
+                    else:
+                        df[c] = df[c].map('{:.3e}'.format)
                 df.to_csv(filename, index=False)
+                #df.to_csv(filename, index=False, float_format='%.3e')
 
 
 

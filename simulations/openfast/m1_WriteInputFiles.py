@@ -37,7 +37,7 @@ for study in ['yaw']:
         writeBatch(dirs, 'OLAF')
 
     elif study=='yaw':
-        generateYaw('_'+study+'/bem', templateDir+'driver.dvr'           , exe, proj=2, var=yaw, dirs=dirs)
+        generateYaw('_'+study+'/bem', templateDir+'driver.dvr'           , exe, proj=2, var=yaw, dirs=dirs, bemmod=250)
         writeBatch(dirs); dirs=[]
         generateYaw('_'+study+'/fvw', templateDir+'driver_olaf.dvr'      , exe, proj=3, var=yaw, dirs=dirs)
         writeBatch(dirs, 'OLAF')

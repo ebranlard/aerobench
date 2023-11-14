@@ -8,15 +8,15 @@ Scripts to generate the inputs and postprocess the outputs will be provided.
 
 ## Introduction
 
-Multiple cases are defined (more details below):
+Multiple cases are defined (more details [below](#cases)):
 
 - `yaw`: a parametric study on the yaw angle
 - `cone`: a parametric study on the cone angle
 
 
-Different kind of outputs are requested. See below. 
+Different kind of outputs are requested. See [below](#outputs). 
 
-
+Participants can submit results via pull request to the `results` branch. [below](#submitting-results). 
 
 
 
@@ -49,6 +49,26 @@ simulations/openfast/_results/yaw_bem_rotor.csv
 simulations/openfast/_yaw/bem/yaw_-50.0.fst
 ```
 
+### Submitting results
+
+Results are not shared on the main branch but on the `results` branch of this repository.
+
+To submit/share results you can send them to me or push them on github if you are familiar with git.
+Checkout the branch `results`, add your `_results` folder to this branch. 
+Push the changes to your own fork of the repository and create a pull request.
+
+The main steps would be (assuming the main github repository is `origin` and your fork is on `your-remote`  :
+
+```bash
+git fetch origin
+git checkout results
+git pull origin results
+git checkout -b your-tool-branch # Optional, create your own branch
+git add -f simulations/your-tool/_results/*.csv
+git commit -m "Adding results for tool your-tool"
+git push your-remote your-tool-branch
+```
+Then create a pull request from branch (`your-tool-branch`) of your fork (1your-remote1) to the branch `results` of this repository (`origin`).
 
 
 
@@ -112,7 +132,7 @@ Baseline setup with yaw angle varied
 
 
 
-## Outputs and results formats
+## Outputs
 
 
 Format specifications:
@@ -123,6 +143,7 @@ Format specifications:
  - the header line (also comma separated) defines the column names.
  - Column names include the variable name and the unit in squared brackets
  - But recommended to keep the first column as the "Main variable"
+ - Results should have between 4 significant figures/digits (e.g. `%.3e`). More is not recommended (for storage purposes)
 
 
 ### output: rotor-avg
@@ -133,10 +154,13 @@ Columns:
 [PARAMETRIC_VARIABLE], Power_[W], Thrust_[N], more
 ```
 
-Example, for the yaw case:
-Columns: 
+Example, for the yaw case (see [here](/../results/simulations/openfast/_results/yaw_bem_rotor-avg.csv):
 ```
-Yaw_[deg], Power_[W], Thrust_[N]
+Yaw_[deg] , Thrust_[N] , Power_[W]
+-50       , 1.410e+06  , 5.054e+06
+-45       , 1.499e+06  , 6.014e+06
+             [...]
+50        , 1.410e+06  , 5.054e+06
 ```
 
 TODO more columns to be added.
