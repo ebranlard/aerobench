@@ -53,4 +53,20 @@ jobs:
 
       - name: Python plot
         run: |
+          # Try to run main plot script
           python plot.py --noshow
+
+      - name: Export figure
+        run: |
+          export CURRENT_HASH=`git rev-parse --short HEAD`
+          echo "GITHUB_REF: $GITHUB_REF"
+          if [[ $GITHUB_REF == *"main"* ]]; then 
+             echo "Attemp to export generated figures"
+             # Add the figures to the fig repository (only if the figures change)
+             # TODO: do that with deploy or artifact insteady
+             git checkout figs
+             cp _figures_tmp/*.png figures/                        || true
+             git add -f figures/*.png                              || true
+             git commit -m "Update of figure after $CURRENT_HASH" || true
+             git push --set-upstream origin figs
+          fi

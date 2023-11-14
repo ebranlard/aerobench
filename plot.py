@@ -3,17 +3,26 @@ import glob
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import sys
+# --- Temporary hack to export figures in a temporary folder on github action
+if len(sys.argv)==1:
+    figDir='./'
+else:
+    figDir='./_figures_tmp/'
+    if not os.path.exists(figDir):
+       os.makedirs(figDir)
 
-simDir = 'simulations/'
-
+# --- Script parameters
 cases=[]
 cases+=['yaw']
+
+simDir = 'simulations/'
 
 tools = [d for d in os.listdir(simDir) if os.path.isdir(os.path.join(simDir,d))]
 print('Tools:', tools)
 
 
-# --- Load results
+# --- Helper functions
 # TODO: all this will be placed in library code
 colRotorAvg = ['Yaw_[deg]', 'Thrust_[N]' , 'Power_[W]']
 
@@ -47,6 +56,7 @@ def getStyle(case, tool, model):
             }
     return sty_dict
 
+# --- Load results
 resCases = {}
 for case in cases:
     resTools = {}
@@ -77,7 +87,7 @@ for case in cases:
     resCases[case] = resTools
 
 
-# --- Plot
+# --- Plot results
 CASE2KEY={'yaw':'Yaw_[deg]','cone':'Cone_[deg]'}
 for case, resTools  in resCases.items():
     key = CASE2KEY[case]
@@ -97,9 +107,10 @@ for case, resTools  in resCases.items():
     axes[1].set_ylabel('Thrust [N]')
     axes[1].set_xlabel(key.replace('_',' '))
 
+    fig.savefig(figDir+f'{case}.png')
+
 
 
 if __name__ == '__main__':
-    import sys
     if len(sys.argv)==1:
         plt.show()
