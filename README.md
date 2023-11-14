@@ -49,11 +49,23 @@ simulations/openfast/_results/yaw_bem_rotor.csv
 simulations/openfast/_yaw/bem/yaw_-50.0.fst
 ```
 
+
+### Scripts
+
+You can test your results by running the `plot.py` script at the root of this repository.
+
+The script will be further updated in the future.
+
+
 ### Submitting results
 
 Results are not shared on the main branch but on the `results` branch of this repository.
 
-To submit/share results you can send them to me or push them on github if you are familiar with git.
+You can verify that your results are well formatted by running the main plotting script `plot.py` (see [here](#scripts)).
+
+To submit/share results, the easiest would be to send them to me by email.
+
+If you are not too scared of git, you can follow the following procedure.
 Checkout the branch `results`, add your `_results` folder to this branch. 
 Push the changes to your own fork of the repository and create a pull request.
 
@@ -92,7 +104,7 @@ For a straight blade, the `z_p` axis coincides with the blade and pitch axis.
 
 ## Cases
 
-###  baseline simulation setup
+### baseline simulation setup
 
 IEA15-MW Wind turbine but with the following properties:
 
@@ -174,6 +186,8 @@ Columns:
 ```
 Azimuth_[deg], [PARAMETRIC_VARIABLE], [Same columns as the rotor-avg case]
 ```
+
+TODO decide a number of bins
 
 
 ### output: span-avg
