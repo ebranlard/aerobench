@@ -16,7 +16,7 @@ Multiple cases are defined (more details [below](#cases)):
 
 Different kind of outputs are requested. See [below](#outputs). 
 
-Participants can submit results via pull request to the `results` branch. [below](#submitting-results). 
+Participants can submit results via a pull request or contacting me. [below](#submitting-results). 
 
 
 
@@ -66,21 +66,20 @@ You can verify that your results are well formatted by running the main plotting
 To submit/share results, the easiest would be to send them to me by email.
 
 If you are not too scared of git, you can follow the following procedure.
-Checkout the branch `results`, add your `_results` folder to this branch. 
+Checkout the main branch, add your `_results` folder to this branch. 
 Push the changes to your own fork of the repository and create a pull request.
 
 The main steps would be (assuming the main github repository is `origin` and your fork is on `your-remote`  :
 
 ```bash
 git fetch origin
-git checkout results
-git pull origin results
+git pull origin main
 git checkout -b your-tool-branch # Optional, create your own branch
 git add -f simulations/your-tool/_results/*.csv
 git commit -m "Adding results for tool your-tool"
 git push your-remote your-tool-branch
 ```
-Then create a pull request from branch (`your-tool-branch`) of your fork (1your-remote1) to the branch `results` of this repository (`origin`).
+Then create a pull request from branch (`your-tool-branch`) of your fork (`your-remote`) to the branhc `main` of this repository (`origin`).
 
 
 
@@ -166,7 +165,7 @@ Columns:
 [PARAMETRIC_VARIABLE], Power_[W], Thrust_[N], more
 ```
 
-Example, for the yaw case (see [here](/../results/simulations/openfast/_results/yaw_bem_rotor-avg.csv):
+Example, for the yaw case (see [here](simulations/openfast/_results/yaw_bem_rotor-avg.csv)):
 ```
 Yaw_[deg] , Thrust_[N] , Power_[W]
 -50       , 1.410e+06  , 5.054e+06
