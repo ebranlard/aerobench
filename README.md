@@ -10,17 +10,17 @@ Suggested set of simulations for benchmark of wind turbine simulation tools.
 
 ## Introduction
 
-Multiple cases are defined (more details [below](#cases)):
+Multiple cases are defined (see [Cases](#cases)):
 
 - `yaw`: a parametric study on the yaw angle
 - `cone`: a parametric study on the cone angle
 
 
-Different kind of outputs are requested. See [below](#outputs). 
+Different kind of outputs are requested. See [Outputs](#outputs). 
 
-Participants can submit results via a pull request or contacting me. See [below](#submitting-results). 
+Participants can submit results via a pull request or contacting me. See [Results](#submitting-results). 
 
-Scripts to generate the inputs and postprocess the outputs are provided. See [below](#scripts)
+Scripts to generate the inputs and postprocess the outputs are provided. See [Scripts](#scripts)
 
 
 ### Suggested directory structure:
@@ -40,15 +40,15 @@ simulations/[tool]/_results/[case]_[model]_[output].csv
 simulations/[tool]/_[case]/[model]/input_file.dat
 ```
 
- - With `[case]` in `{yaw, cone}`
- - With `[output]` in `{rotor-avg, rotor-azi, span-avg, station[N]}`
  - With `[tool]` in `{openfast, awsm, bladed, hawc2, etc}` or institution name `{nrel, dtu, tno, dlr, etc.}`
+ - With `[case]` in `{yaw, cone}`. See [Cases](#cases). 
  - With `[model]` in `{bem, fvw, cfd}'` (submodels can be set as follows: `bem-version2`)
+ - With `[output]` in `{rotor-avg, rotor-azi, span-avg, station[N]}`. See [Outputs](#outputs). 
 
 
 Example:
 ```
-simulations/openfast/_results/yaw_bem_rotor.csv
+simulations/openfast/_results/yaw_bem_rotor-avg.csv
 simulations/openfast/_yaw/bem/yaw_-50.0.fst
 ```
 
@@ -70,8 +70,6 @@ This way, `import aerobench` will work in python scripts outside of the root dir
 
 
 ### Submitting results
-
-Results are not shared on the main branch but on the `results` branch of this repository.
 
 You can verify that your results are well formatted by running the main plotting script `plot.py` (see [here](#scripts)).
 
@@ -115,6 +113,11 @@ For a straight blade, the `z_p` axis coincides with the blade and pitch axis.
 
 ## Cases
 
+The cases are:
+
+ - `yaw`
+ - `cone`
+
 ### baseline simulation setup
 
 IEA15-MW Wind turbine but with the following properties:
@@ -157,6 +160,12 @@ Baseline setup with yaw angle varied
 
 ## Outputs
 
+The types of outputs are:
+
+ - `rotor-avg`: integral rotor quantities, averaged over one rotor revolution (at least).
+ - `rotor-azi`: integral rotor quantities, bin-averaged as function of the azimuth angle.
+ - `span-avg`: variables along the span of blade 1, averaged over one rotor revolution (at least).
+ - `station[N]`: variables at a given node of blade 1, bin-averaged as function of the azimuth angle.
 
 Format specifications:
 
@@ -244,5 +253,5 @@ Azimuth_[deg], [PARAMETRIC_VARIABLE], [same columns as span-avg]
 
 ## Current results
 
-![Scatter](/../figs/figures/yaw.png)
+![Yaw](/../figs/figures/yaw.png)
 
