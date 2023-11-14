@@ -97,4 +97,9 @@ for case, resTools  in resCases.items():
     axes[1].set_ylabel('Thrust [N]')
     axes[1].set_xlabel(key.replace('_',' '))
 
-plt.show()
+
+
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv)==1:
+        plt.show()

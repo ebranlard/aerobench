@@ -1,8 +1,10 @@
+
+[![Build status](https://github.com/ebranlard/aerobench/workflows/Tests/badge.svg)](https://github.com/ebranlard/aerobench/actions?query=workflow%3A%22Tests%22)
+
 # AeroBench
 
 Suggested set of simulations for benchmark of wind turbine simulation tools.
 
-Scripts to generate the inputs and postprocess the outputs will be provided.
 
 
 
@@ -16,8 +18,9 @@ Multiple cases are defined (more details [below](#cases)):
 
 Different kind of outputs are requested. See [below](#outputs). 
 
-Participants can submit results via a pull request or contacting me. [below](#submitting-results). 
+Participants can submit results via a pull request or contacting me. See [below](#submitting-results). 
 
+Scripts to generate the inputs and postprocess the outputs are provided. See [below](#scripts)
 
 
 ### Suggested directory structure:
@@ -55,6 +58,15 @@ simulations/openfast/_yaw/bem/yaw_-50.0.fst
 You can test your results by running the `plot.py` script at the root of this repository.
 
 The script will be further updated in the future.
+
+
+We recommend doing an install of the repository. From the root of the repository:
+```bash
+python -m pip install -e . --user
+```
+This way, `import aerobench` will work in python scripts outside of the root directory. 
+
+
 
 
 ### Submitting results
