@@ -1,0 +1,20 @@
+# Ignore anything that starts with an underscore
+_*
+
+# Binaries
+*.dll
+*.exe
+*.zip
+
+# Figures
+*.pdf
+*.png
+
+# Python
+__pycache__
+*.ipynb_checkpoints
+*.pyc
+*.pyd
+*.egg-info*
+!__init__.py
+
