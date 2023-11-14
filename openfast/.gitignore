@@ -1,0 +1,10 @@
+# OpenFAST outputs
+*.outb
+*.out
+*.sum
+*.echo
+*.vtp
+*.vtk
+*.bts
+vtk_fvw
+vtk
